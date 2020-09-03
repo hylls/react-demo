@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react'
 import { TopBarCss, NavCss } from './style.js'
 function NavItem(props) {
+  console.log(props);
   return (
     <li onClick={props.handleClick} style={props.activeTabBar}>{props.name}</li>
   )
