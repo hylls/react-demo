@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 
 export const TopBarCss = styled.div`
-  height: 105px;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex-wrap: wrap;
   .topBar {
     height: 70px;
@@ -14,6 +13,7 @@ export const TopBarCss = styled.div`
       text-align: center;
       display: flex;
       justify-content: center;
+      align-items: center;
       .top-logo {
         display: inline-block;
         background: url(${require('@/assets/img/topbar.png')}) no-repeat;
@@ -25,7 +25,27 @@ export const TopBarCss = styled.div`
   .slide {
     width: 100%;
     background-color: #C20C0C;
-    height: 35px;
+    height: 34px;
+    ul {
+      display: flex;
+      justify-content: space-evenly;
+      width: 564px;
+      height: 100%;
+      align-items: center;
+      color: #fff;
+      font-size: 12px;
+      margin-left: 227px;
+      li {
+        height: 100%;
+        line-height: 34px;
+        padding: 0 10px;
+        cursor: pointer;
+        &:hover {
+          background: #9B0909;
+          border-radius: 20px;
+        }
+      }
+    }
   }
 `
 
@@ -45,6 +65,18 @@ export const NavCss = styled.div`
       height: 100%;
       line-height: 70px;
       cursor: pointer;
+      position: relative;
+      em {
+        position: absolute;
+        left: 50%;
+        top: 90%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-bottom: 7px solid #C20C0C;
+      }
       &:hover {
         background-color: #000;
         color: #fff;
