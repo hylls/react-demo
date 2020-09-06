@@ -1,4 +1,4 @@
-import request from './axios';
+import request from './index';
 
 export function getDjRadioCatelist() {
   return request({
@@ -23,5 +23,11 @@ export function getDjRadios(cateId, limit, offset) {
       limit,
       offset
     }
+  })
+}
+// 轮播图
+export function getBanners() {
+  return request({
+    url: `/banner?type=${0}${new Date().getTime()}`,
   })
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import Main from './pages/main'
-import {GlobalStyle} from './assets/css/normalize'
+import { GlobalStyle } from './assets/css/normalize'
 
 function App() {
   return (

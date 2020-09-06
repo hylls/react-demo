@@ -32,6 +32,22 @@ export const CarouselItemCss = styled.div`
 `
 
 export const CarouselCss = styled.div`
-  /* display: flex; */
-  
+  position: relative;
+  .carou-btn {
+    cursor: pointer;
+    background-color: yellowgreen;
+    position: absolute;
+    height: 63px;
+    width: 37px;
+    top: 50%;
+    z-index: 9999;
+  }
+  .carou-left {
+    left: 330px;
+    transform: translate(-200%, -50%);
+  }
+  .carou-right {
+    right: 330px;
+    transform: translate(200%, -50%);
+  }
 `

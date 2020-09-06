@@ -17,31 +17,11 @@ function NavItem(props) {
   )
 }
 function Nav(props) {
-  function discover(currentIndex) {
-    const newArr = tabArray.map((item) => {
-      item.isClick = false
-      return item
-    })
-    newArr[currentIndex].isClick = true
-    setTab(newArr)
-    props.handleClick(currentIndex)
-  }
-  const [tabArray, setTab] = useState([
-    { name: '发现音乐', id: 0, handleClick: discover, isClick: true },
-    { name: '我的音乐', id: 1, handleClick: discover, isClick: false },
-    { name: '朋友', id: 2, handleClick: discover, isClick: false },
-    { name: '商场', id: 3, handleClick: discover, isClick: false },
-    { name: '音乐人', id: 4, handleClick: discover, isClick: false },
-    { name: '下载客户端', id: 5, handleClick: discover, isClick: false },
-  ])
-  function handleCurrentIndex(e) {
-    // console.log(e.target);
-  }
   return (
     <NavCss>
-      <ul onClick={handleCurrentIndex} className="top-nav">
+      <ul className="top-nav">
         {
-          tabArray.map((item, index) => (
+          props.tabArray.map((item, index) => (
             <NavItem
               isClick={item.isClick}
               name={item.name}
@@ -55,7 +35,6 @@ function Nav(props) {
 }
 function RightNav() {
   function login() {
-    console.log(1);
   }
   return (
     <>
@@ -97,21 +76,21 @@ function SlideItem(props) {
     <li>{props.name}</li>
   )
 }
-export default memo(function TopBar() {
-  let [currentIndex, setCurrent] = useState(0)
-  function handleClick(val) {
-    setCurrent(val)
-  }
+export default memo(function TopBar(props) {
   return (
     <TopBarCss>
       <div className="topBar">
         <div className="topBar_main">
           <div className="top-logo"></div>
-          <Nav currentIndex={currentIndex} handleClick={handleClick} />
+          <Nav 
+            currentIndex={props.currentIndex}
+            handleClick={props.handleClick}
+            tabArray={props.tabArray}
+          />
           <RightNav/>
         </div>
       </div>
-      <Slide currentIndex={currentIndex}/>
+      <Slide currentIndex={props.currentIndex}/>
     </TopBarCss>
   )
 })
