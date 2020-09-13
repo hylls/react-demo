@@ -1,96 +1,64 @@
-import React, { memo, useState } from 'react'
-import { TopBarCss, NavCss } from './style.js'
-import { Input, Button } from 'antd';
+import React, { memo } from 'react'
+import { NavLink } from 'react-router-dom'
+import { Input, Button } from 'antd'
+import { TopBarWrapper } from './style'
+
 const { Search } = Input;
-function NavItem(props) {
-  const activeTabBar = props.isClick
-  ? { backgroundColor: '#000', color: '#fff' }
-  : {}
-  return (
-    <li onClick={props.handleClick} style={activeTabBar}>
-      <span>{props.name}</span>
-      {
-        props.isClick &&
-        <em></em>
-      }
-    </li>
-  )
-}
-function Nav(props) {
-  return (
-    <NavCss>
-      <ul className="top-nav">
+
+export default memo(function TopBar() {
+  const links = [
+    { to: '/discover', name: '发现音乐' },
+    { to: '/myMusic', name: '我的音乐' },
+    { to: '/friend', name: '朋友' },
+    { to: 'https://music.163.com/store/product', name: '商城' },
+    { to: 'https://music.163.com/nmusician/web/index#/', name: '音乐人' },
+    { to: '/download', name: '下载客户端' }
+  ]
+  function Navs() {
+    return (
+      <>
         {
-          props.tabArray.map((item, index) => (
-            <NavItem
-              isClick={item.isClick}
-              name={item.name}
-              key={item.id}
-              handleClick={item.handleClick.bind(this, index)} />
-          ))
+          links.map((item, index) => {
+            if (index < 3 || index > 4) {
+              return <NavLink
+                      activeStyle={{
+                        backgroundColor: '#000',
+                        color: '#fff'
+                      }}
+                      key={item.to}
+                      to={item.to}>
+                        {item.name}
+                      </NavLink>
+            } else {
+              return <a className="nav-a-item" key={item.to} href={item.to} rel="noopener noreferrer" target="_blank">{item.name}</a>
+            }
+          })
         }
-      </ul>
-    </NavCss>
-  )
-}
-function RightNav() {
-  function login() {
+      </>
+    )
   }
   return (
-    <>
-      <Search
-        placeholder="音乐/视频/电台/用户"
-        onSearch={value => console.log(value)}
-        style={{ width: 200, height: 32, marginLeft: 40 }}
-      />
-      <Button type="primary" shape="round" style={{marginLeft: 10}}>
-        创作者中心
-      </Button>
-      <span onClick={login} style={{color: '#787878', marginLeft: 30}}>登录</span>
-    </>
-  )
-}
-function Slide(props) {
-  const [slideList] = useState([
-    {name: '推荐', link: ''},
-    {name: '排行榜', link: ''},
-    {name: '歌单', link: ''},
-    {name: '主播电台', link: ''},
-    {name: '歌手', link: ''},
-    {name: '新碟上架', link: ''},
-  ])
-  return (
-    <div className="slide" style={props.currentIndex === 0 ? {height: 34} : {height: 5}}>
-      <ul>
-        {
-          slideList.map((item) => (
-            <SlideItem key={item.name} name={item.name} link={item.link}/>
-          ))
-        }
-      </ul>
-    </div>
-  )
-}
-function SlideItem(props) {
-  return (
-    <li>{props.name}</li>
-  )
-}
-export default memo(function TopBar(props) {
-  return (
-    <TopBarCss>
+    <TopBarWrapper>
       <div className="topBar">
-        <div className="topBar_main">
-          <div className="top-logo"></div>
-          <Nav 
-            currentIndex={props.currentIndex}
-            handleClick={props.handleClick}
-            tabArray={props.tabArray}
+        <div className="topBar-nav">
+          <i className="title-icon"></i>
+          <Navs/>
+          <Search
+            placeholder="音乐/视频/电台/用户"
+            onSearch={value => console.log(value)}
+            style={{ width: 158, height: 32, lineHeight: 32, marginLeft: 80 }}
           />
-          <RightNav/>
+          <Button
+            type="primary"
+            shape="round"
+            className="creator"
+            style={{
+              backgroundColor: '#242424', color: '#ccc', borderColor: '#4F4F4F', marginLeft: 20
+            }}>创作者中心</Button>
+          <span className="nav-login">登录</span>
         </div>
+        <div className="redWrap"></div>
       </div>
-      <Slide currentIndex={props.currentIndex}/>
-    </TopBarCss>
+    </TopBarWrapper>
   )
 })

@@ -2,7 +2,7 @@ import request from './index';
 
 export function getDjRadioCatelist() {
   return request({
-    url: "/dj/catelist"
+    url: `/dj/catelist`
   })
 }
 

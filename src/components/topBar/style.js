@@ -1,86 +1,62 @@
 import styled from 'styled-components'
 
-export const TopBarCss = styled.div`
-  display: flex;
-  /* justify-content: center; */
-  flex-wrap: wrap;
+export const TopBarWrapper = styled.div`
   .topBar {
-    height: 70px;
-    width: 100%;
-    &_main {
-      height: 100%;
-      background-color: #242424;
-      text-align: center;
+    &-nav {
+      height: 70px;
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      .top-logo {
+      background-color: #242424;
+      flex-wrap: nowrap;
+      font-size: 14px;
+      .nav-login {
+        color: #787878;
+        margin-left: 30px;
+        cursor: pointer;
+        &:hover {
+          color: #999;
+          text-decoration: underline;
+        }
+      }
+      .nav-icon {
         display: inline-block;
         background: url(${require('@/assets/img/topbar.png')}) no-repeat;
+      }
+      .title-icon {
+        display: inline-block;
+        background: url(${require('@/assets/img/topbar.png')}) no-repeat;
+        background-position: 0 0;
         width: 176px;
         height: 69px;
       }
-    }
-  }
-  .slide {
-    width: 100%;
-    background-color: #C20C0C;
-    height: 34px;
-    ul {
-      display: flex;
-      justify-content: space-evenly;
-      width: 564px;
-      height: 100%;
-      align-items: center;
-      color: #fff;
-      font-size: 12px;
-      margin-left: 227px;
-      li {
+      a {
+        flex-shrink: 0;
         height: 100%;
-        line-height: 34px;
-        padding: 0 10px;
-        cursor: pointer;
-        &:hover {
-          background: #9B0909;
-          border-radius: 20px;
+        line-height: 70px;
+        padding: 0 19px;
+        color: #ccc;
+        font-size: 14px;
+        &:last-of-type {
+          position: relative;
+          &::after {
+            width: 28px;
+            height: 19px;
+            position: absolute;
+            content: '';
+            display: inline-block;
+            background: url(${require('@/assets/img/topbar.png')}) no-repeat -190px 0 ;
+            top: 21px;
+            right: -10px;
+          }
         }
       }
     }
-  }
-`
-
-export const NavCss = styled.div`
-  width: 508px;
-  display: flex;
-  align-items: center;
-  .top-nav {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    li {
-      padding: 0 19px;
-      color: #CCC;
-      font-size: 14px;
-      height: 100%;
-      line-height: 70px;
-      cursor: pointer;
-      position: relative;
-      em {
-        position: absolute;
-        left: 50%;
-        top: 90%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 0;
-        border-left: 7px solid transparent;
-        border-right: 7px solid transparent;
-        border-bottom: 7px solid #C20C0C;
-      }
-      &:hover {
-        background-color: #000;
-        color: #fff;
-      }
+    .redWrap {
+      height: 35px;
+      background-color: #C20C0C;
+      border-bottom: 1px solid #a40011;
     }
   }
 `

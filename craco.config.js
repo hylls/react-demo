@@ -7,7 +7,15 @@ module.exports = {
     alias: {
       '@': resolve("src"),
       'api': resolve("src/api"),
+      'pages': resolve("src/pages"),
       'components': resolve("src/components"),
     }
+  },
+  devServer: {
+    // proxy: {
+    //   "/": {
+    //     target: "http://localhost:4000",
+    //   }
+    // }
   }
 }
