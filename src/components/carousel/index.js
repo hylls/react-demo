@@ -22,7 +22,7 @@ function CarouselItem(props) {
     </CarouselItemCss>
   )
 }
-export default memo(function Carousels(props) {
+export default memo(function Carousels() {
   let [carousels] = useState([
     {name: '1', img: '', link: ''},
     {name: '2', img: '', link: ''},
@@ -42,27 +42,26 @@ export default memo(function Carousels(props) {
   function carouselPre() {
     carouRef.current.prev()
   }
-  const classCarousel = props.tabArray[0].isClick
-  ? (
+  const classCarousel =(
     <CarouselCss>
-      <div className="carou-btn carou-left" onClick={carouselPre}></div>
-      <Carousel effect="fade" ref={carouRef}>
-          {
-            carousels.map((item, index) => (
-              <CarouselItem
-                name={item.name}
-                img={item.img}
-                link={item.img}
-                key={index}
-              />
-            ))
-          }
-      </Carousel>
-      <div className="carou-btn carou-right" onClick={carouselNext}></div>
+      <div className="banner-wrap">
+        <div className="carou-btn carou-left" onClick={carouselPre}></div>
+        <Carousel effect="fade" ref={carouRef}>
+            {
+              carousels.map((item, index) => (
+                <CarouselItem
+                  name={item.name}
+                  img={item.img}
+                  link={item.img}
+                  key={index}
+                />
+              ))
+            }
+        </Carousel>
+        <div className="carou-btn carou-right" onClick={carouselNext}></div>
+      </div>
     </CarouselCss>
   )
-  : null
-
   getBanners().then((res) => {
     console.log(res);
   })

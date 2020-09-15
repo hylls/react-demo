@@ -1,5 +1,11 @@
 import React, { memo } from 'react'
 import { NavLink, Switch, Route } from 'react-router-dom'
+import Recommand from './recommand'
+import TopList from './topList'
+import PlayList from './playList'
+import Djradio from './djradio'
+import Artist from './artist'
+import Album from './album'
 
 import { DiscoverWrapper } from './style'
 
@@ -17,7 +23,7 @@ export default memo(function Discover() {
       <>
         {
           discoverLinks.map((item) => (
-            <NavLink to={item.to} key={item.to}>{item.name}</NavLink>
+            <NavLink exact activeStyle={{backgroundColor: '#9b0909'}} to={item.to} key={item.to}>{item.name}</NavLink>
           ))
         }
       </>
@@ -31,22 +37,22 @@ export default memo(function Discover() {
         </div>
         <Switch>
           <Route exact path="/discover">
-            tuijian
+            <Recommand/>
           </Route>
           <Route path="/discover/toplist">
-            asd
+            <TopList/>
           </Route>
           <Route path="/discover/playlist">
-            zz
+            <PlayList/>
           </Route>
           <Route path="/discover/djradio">
-            123
+            <Djradio/>
           </Route>
           <Route path="/discover/artist">
-            tuij56ianzzzz
+            <Artist/>
           </Route>
           <Route path="/discover/album">
-            98978978
+            <Album/>
           </Route>
         </Switch>
       </div>

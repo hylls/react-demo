@@ -38,6 +38,10 @@ export const TopBarWrapper = styled.div`
         padding: 0 19px;
         color: #ccc;
         font-size: 14px;
+        &:hover {
+          background-color: #000;
+          color: #fff;
+        }
         &:last-of-type {
           position: relative;
           &::after {
