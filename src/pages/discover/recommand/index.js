@@ -1,7 +1,9 @@
 import React, { memo, useEffect, useState } from 'react'
 import Carousels from 'components/carousel'
-import { RecommandWrapper } from './style'
 import RedBorder from 'components/redBorder'
+import CdCarou from 'components/cd-carousel'
+import TopListItem from 'components/topListItem'
+import { RecommandWrapper } from './style'
 import { personalized } from 'api/allApi'
 import { getPersonCount } from 'utils'
 
@@ -11,7 +13,7 @@ function Hot() {
     const fetch = async () => {
       const res = await personalized()
       setHotList(res.result)
-      console.log(res.result)
+      // console.log(res.result)
     }
     fetch()
   }, [])
@@ -36,11 +38,46 @@ function Hot() {
   )
 }
 
+function NewCd() {
+  return (
+    <>
+      <CdCarou/>
+    </>
+  )
+}
+
+function TopList() {
+  const list =  [1, 2, 3]
+  return (
+    <>
+      {
+        list.map(item => (
+          <TopListItem key={item}/>
+        ))
+      }
+    </>
+  )
+}
+
 export default memo(function Recommand() {
   const topRecommand = {
     title: '热门推荐',
     middle: '22',
-    right: '更多'
+    right: '更多',
+    icon: true,
+    rightIcon: true
+  }
+  const newCd = {
+    title: '新碟上架',
+    right: '更多',
+    icon: true,
+    rightIcon: true
+  }
+  const topList = {
+    title: '榜单',
+    right: '更多',
+    icon: true,
+    rightIcon: true
   }
   return (
     <RecommandWrapper>
@@ -51,6 +88,16 @@ export default memo(function Recommand() {
             <RedBorder {...topRecommand}>
               <div className="d-flex recommand-hot">
                 <Hot></Hot>
+              </div>
+            </RedBorder>
+            <RedBorder {...newCd}>
+              <div className="recommand-newCd">
+                <NewCd></NewCd>
+              </div>
+            </RedBorder>
+            <RedBorder {...topList}>
+              <div className="recommand-topList d-flex">
+                <TopList></TopList>
               </div>
             </RedBorder>
           </div>

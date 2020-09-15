@@ -31,10 +31,19 @@ export function getBanners() {
     url: `/banner?type=${0}${new Date().getTime()}`,
   })
 }
-
+// 热门推荐
 export function personalized(limit = 8) {
   return request({
     url: '/personalized',
+    params: {
+      limit
+    }
+  })
+}
+// 新碟上架
+export function getAlbum(limit = 10) {
+  return request({
+    url: '/top/album',
     params: {
       limit
     }

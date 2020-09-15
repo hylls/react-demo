@@ -18,6 +18,7 @@ export const RecommandWrapper = styled.div`
         .pic-wrap {
           position: relative;
           img {
+            cursor: pointer;
             width: 100%;
             height: 140;
           }
@@ -42,15 +43,6 @@ export const RecommandWrapper = styled.div`
               padding-left: 5px;
               flex-grow: .7;
             }
-            .music-play {
-              cursor: pointer;
-              width: 16px;
-              height: 17px;
-              background-position: 0 0;
-              &:hover {
-                background-position: 0 -60px;
-              }
-            }
           }
         }
         .item-name {
@@ -62,6 +54,16 @@ export const RecommandWrapper = styled.div`
           }
         }
       }
+    }
+    &-newCd {
+      border: 1px solid #d3d3d3;
+      background: #f5f5f5;
+      height: 184px;
+    }
+    &-topList {
+      height: 472px;
+      border: 1px solid #d3d3d3;
+      border-right: none;
     }
   }
 `

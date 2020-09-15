@@ -56,4 +56,39 @@ export const GlobalStyle = createGlobalStyle`
         display: inline-block;
         background: url(${require('@/assets/img/iconall.png')}) no-repeat;
     }
+    .icon-index {
+        display: inline-block;
+        background: url(${require('@/assets/img/index.png')}) no-repeat;
+    }
+    .text-noWrap {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .u-line {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    .c-p {
+        cursor: pointer;
+    }
+    .music-play {
+        cursor: pointer;
+        width: 16px;
+        height: 17px;
+        background-position: 0 0;
+        &:hover {
+            background-position: 0 -60px;
+        }
+    }
+    .music-play-1 {
+        cursor: pointer;
+        width: 22px;
+        height: 22px;
+        background-position: 0 -85px;
+        &:hover {
+            background-position: 0 -110px;
+        }
+    }
 `
