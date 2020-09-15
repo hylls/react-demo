@@ -12,7 +12,7 @@ export default memo(function RedBorder(props) {
           <div className="middle">{props.middle}</div>
           <div className="right">{props.right}</div>
         </div>
-        <div className="content"></div>
+        <div className="content">{props.children}</div>
       </div>
     </RedBorderCss>
   )

@@ -44,4 +44,16 @@ export const GlobalStyle = createGlobalStyle`
         border-collapse: collapse;
         border-spacing: 0;
     }
-`;
+    .wrap-980 {
+        width: 980px;
+        margin: 0 auto;
+        border: 1px solid #d3d3d3;
+    }
+    .d-flex {
+        display: flex;
+    }
+    .icon-all {
+        display: inline-block;
+        background: url(${require('@/assets/img/iconall.png')}) no-repeat;
+    }
+`

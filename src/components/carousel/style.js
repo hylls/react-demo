@@ -8,7 +8,7 @@ export const CarouselItemCss = styled.div`
     justify-content: center;
     .carou-main {
       position: relative;
-      width: 730px;
+      width: 980px;
       height: 100%;
       background: pink;
       .carou-btn {
@@ -33,11 +33,13 @@ export const CarouselItemCss = styled.div`
 `
 
 export const CarouselCss = styled.div`
-  width: 730px;
+  /* width: 730px;
   margin: 0 auto;
+  background: red; */
+  background: yellowgreen;
   .banner-wrap {
     position: relative;
-    width: 730px;
+    width: 980px;
     margin: 0 auto;
   }
   .carou-btn {
@@ -49,7 +51,7 @@ export const CarouselCss = styled.div`
     z-index: 9999;
   }
   .carou-left {
-    left: 100px;
+    left: -67px;
     /* transform: translate(-200%, -50%); */
     background: url(${require('@/assets/img/banner.png')}) no-repeat;
     background-position: 0 -360px;
@@ -58,7 +60,7 @@ export const CarouselCss = styled.div`
     }
   }
   .carou-right {
-    right: 100px;
+    right: -67px;
     /* transform: translate(200%, -50%); */
     background: url(${require('@/assets/img/banner.png')}) no-repeat;
     background-position: 0 -508px;

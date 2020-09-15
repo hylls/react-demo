@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react'
 import { Carousel } from 'antd';
 import { CarouselItemCss, CarouselCss } from './style'
 
-import { getBanners } from 'api/allApi'
+// import { getBanners } from 'api/allApi'
 
 function CarouselItem(props) {
   const contentStyle = {
@@ -62,8 +62,8 @@ export default memo(function Carousels() {
       </div>
     </CarouselCss>
   )
-  getBanners().then((res) => {
-    console.log(res);
-  })
+  // getBanners().then((res) => {
+  //   console.log(res);
+  // })
   return classCarousel
 })

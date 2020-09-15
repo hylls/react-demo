@@ -31,3 +31,12 @@ export function getBanners() {
     url: `/banner?type=${0}${new Date().getTime()}`,
   })
 }
+
+export function personalized(limit = 8) {
+  return request({
+    url: '/personalized',
+    params: {
+      limit
+    }
+  })
+}

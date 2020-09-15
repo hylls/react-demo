@@ -8,6 +8,7 @@ module.exports = {
       '@': resolve("src"),
       'api': resolve("src/api"),
       'pages': resolve("src/pages"),
+      'utils': resolve("src/utils"),
       'components': resolve("src/components"),
     }
   },

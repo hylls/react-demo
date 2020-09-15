@@ -25,9 +25,6 @@ export const DiscoverWrapper = styled.div`
           background-color: #9B0909;
         }
       }
-      &+div {
-        background: yellowgreen;
-      }
     }
   }
 `
