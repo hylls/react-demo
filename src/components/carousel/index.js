@@ -1,8 +1,8 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { Carousel } from 'antd';
 import { CarouselItemCss, CarouselCss } from './style'
 
-// import { getBanners } from 'api/allApi'
+import { getBanners } from 'api/allApi'
 
 function CarouselItem(props) {
   const contentStyle = {
@@ -13,28 +13,30 @@ function CarouselItem(props) {
     background: '#364d79',
   };
   return (
-    <CarouselItemCss>
+    <CarouselItemCss {...props}>
       <div className="carou" style={contentStyle}>
         <div className="carou-main">
-          {props.name}
+          {/* <div className="main-image">
+
+          </div> */}
+          <img className="main-left" src={props.imageUrl}alt={props.name} />
+          <div className="main-right">
+            <span>PC 安卓 iPhone WP iPad Mac 六大客户端</span>
+          </div>
         </div>
       </div>
     </CarouselItemCss>
   )
 }
 export default memo(function Carousels() {
-  let [carousels] = useState([
-    {name: '1', img: '', link: ''},
-    {name: '2', img: '', link: ''},
-    {name: '3', img: '', link: ''},
-    {name: '4', img: '', link: ''},
-    {name: '5', img: '', link: ''},
-    {name: '1', img: '', link: ''},
-    {name: '1', img: '', link: ''},
-    {name: '1', img: '', link: ''},
-    {name: '1', img: '', link: ''},
-    {name: '1', img: '', link: ''},
-  ])
+  let [carousels, setCarousels] = useState([])
+  useEffect(() => {
+    (async function() {
+      const res = await getBanners()
+      setCarousels(res.banners)
+      console.log(res)
+    })()
+  }, [])
   const carouRef = React.createRef()
   function carouselNext() {
     carouRef.current.next()
@@ -50,9 +52,10 @@ export default memo(function Carousels() {
             {
               carousels.map((item, index) => (
                 <CarouselItem
-                  name={item.name}
-                  img={item.img}
-                  link={item.img}
+                  {...item}
+                  // name={item.name}
+                  // img={item.img}
+                  // link={item.img}
                   key={index}
                 />
               ))
@@ -62,8 +65,5 @@ export default memo(function Carousels() {
       </div>
     </CarouselCss>
   )
-  // getBanners().then((res) => {
-  //   console.log(res);
-  // })
   return classCarousel
 })

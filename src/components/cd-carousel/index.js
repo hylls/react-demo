@@ -7,7 +7,6 @@ import { getAlbum } from 'api/allApi'
 import { oneToTwoArr } from 'utils'
 
 function CdCarouItem(props) {
-  console.log(props);
   return (
     <CdCarouItemWrapper>
       <div className="cd-carou-item d-flex">

@@ -11,6 +11,33 @@ export const CarouselItemCss = styled.div`
       width: 980px;
       height: 100%;
       background: pink;
+      display: flex;
+      .main-left {
+        width: 730px;
+        height: 100%;
+      }
+      .main-right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 254px;
+        background: url(${require('@/assets/img/download.png')}) no-repeat;
+        background-position: 0 0;
+        span {
+          display: inline-block;
+          font-size: 12px;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 16px;
+          line-height: 16px;
+          text-align: center;
+          margin: 10px auto 17px;
+          width: 100%;
+          color: #8d8d8d;
+        }
+      }
       .carou-btn {
         cursor: pointer;
         background-color: yellowgreen;
