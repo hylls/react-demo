@@ -4,8 +4,9 @@ import RedBorder from 'components/redBorder'
 import CdCarou from 'components/cd-carousel'
 import TopListItem from 'components/topListItem'
 import { RecommandWrapper } from './style'
-import { personalized } from 'api/allApi'
+import { personalized, getTopList, getRankingList } from 'api/allApi'
 import { getPersonCount } from 'utils'
+
 
 function Hot() {
   const [hotList, setHotList] = useState([])
@@ -47,12 +48,30 @@ function NewCd() {
 }
 
 function TopList() {
-  const list =  [1, 2, 3]
+  // const list =  [1, 2, 3]
+  const [topList, setTopList] = useState([])
+  useEffect(() => {
+    (async function() {
+      const res = await getTopList()
+      const list = res.list.slice(0, 3)
+      const res2 = await Promise.all([getRankingList(list[0].id), getRankingList(list[1].id), getRankingList(list[2].id)])
+      setTopList(res2)
+      // console.log(res2);
+    })()
+  }, [])
+  // useEffect(() => {
+  //   (async function(){
+  //     if (topList.length) {
+  //       const res = await Promise.all([getRankingList(topList[0].id), getRankingList(topList[1].id), getRankingList(topList[2].id)])
+  //       console.log(res);
+  //     }
+  //   })()
+  // }, [topList])
   return (
     <>
       {
-        list.map(item => (
-          <TopListItem key={item}/>
+        topList.map(item => (
+          <TopListItem {...item.playlist} key={item.playlist.id}/>
         ))
       }
     </>

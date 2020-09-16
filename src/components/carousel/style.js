@@ -48,11 +48,9 @@ export const CarouselItemCss = styled.div`
       }
       .carou-left {
         position: absolute;
-        /* transform: translate(-200%, -50%); */
       }
       .carou-right {
         position: absolute;
-        /* transform: translate(200%, -50%); */
       }
     }
   }
@@ -60,10 +58,7 @@ export const CarouselItemCss = styled.div`
 `
 
 export const CarouselCss = styled.div`
-  /* width: 730px;
-  margin: 0 auto;
-  background: red; */
-  background: yellowgreen;
+  background: url(${props => props.bgImage});
   .banner-wrap {
     position: relative;
     width: 980px;
