@@ -10,3 +10,7 @@ export const MainBorderCss = styled.div`
   border: 1px solid #d3d3d3;
   border-top: none;
 `
+
+export const MainWrapper = styled.div`
+  position: relative;
+`

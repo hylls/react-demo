@@ -3,6 +3,7 @@ import Carousels from 'components/carousel'
 import RedBorder from 'components/redBorder'
 import CdCarou from 'components/cd-carousel'
 import TopListItem from 'components/topListItem'
+import RecommandRight from 'components/recommand-right'
 import { RecommandWrapper } from './style'
 import { personalized, getTopList, getRankingList } from 'api/allApi'
 import { getPersonCount } from 'utils'
@@ -59,14 +60,6 @@ function TopList() {
       // console.log(res2);
     })()
   }, [])
-  // useEffect(() => {
-  //   (async function(){
-  //     if (topList.length) {
-  //       const res = await Promise.all([getRankingList(topList[0].id), getRankingList(topList[1].id), getRankingList(topList[2].id)])
-  //       console.log(res);
-  //     }
-  //   })()
-  // }, [topList])
   return (
     <>
       {
@@ -121,7 +114,7 @@ export default memo(function Recommand() {
             </RedBorder>
           </div>
           <div className="recommand-right">
-            我是右边
+            <RecommandRight/>
           </div>
         </div>
       </div>

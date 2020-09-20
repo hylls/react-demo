@@ -60,6 +60,14 @@ export const GlobalStyle = createGlobalStyle`
         display: inline-block;
         background: url(${require('@/assets/img/index.png')}) no-repeat;
     }
+    .icon-many {
+        display: inline-block;
+        background: url(${require('@/assets/img/icon.png')}) no-repeat;
+    }
+    .icon-playbar {
+        display: inline-block;
+        background: url(${require('@/assets/img/playbar.png')});
+    }
     .text-noWrap {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -72,6 +80,25 @@ export const GlobalStyle = createGlobalStyle`
     }
     .c-p {
         cursor: pointer;
+    }
+    .f-l {
+        float: left;
+    }
+    .f-r {
+        float: right;
+    }
+    .j-c {
+        justify-content: center;
+    }
+    .a-c {
+        align-items: center;
+    }
+    .clear::after {
+        content: '';
+        clear: both;
+        height: 0;
+        display: block;
+        visibility: hidden;
     }
     .music-play {
         cursor: pointer;
