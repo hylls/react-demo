@@ -64,15 +64,23 @@ export const PlayerWrapper = styled.div`
           height: 9px;
           width: 493px;
           background-position: right 0;
-          background: url(${require('@/assets/img/statbar.png')}) no-repeat;
+          background: url(${require('@/assets/img/statbar.png')});
           .red-process {
             position: absolute;
             left: 0;
             top: 0;
             height: 9px;
             width: 493px;
-            background-position: left 9999px;
-            background: url(${require('@/assets/img/statbar.png')}) no-repeat;
+            background-position: 0 -66px;
+            background: url(${require('@/assets/img/statbar.png')});
+            .drag-icon {
+              position: absolute;
+              left: -1.1%;
+              top: -7px;
+              width: 22px;
+              height: 24px;
+              background-position: 0 -250px;
+            }
           }
         }
       }
