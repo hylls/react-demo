@@ -35,7 +35,6 @@ function ListItemLi(props) {
 }
 
 export default memo(function TopListItem(props) {
-  console.log(props);
   const rankList = props.tracks.slice(0, 10)
   return (
     <TopListItemWrapper>

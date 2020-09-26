@@ -47,10 +47,33 @@ export const PlayerWrapper = styled.div`
       font-size: 12px;
       .process {
         height: 100%;
+        width: 100%;
         flex-flow: column wrap;
+        justify-content: flex-end;
+        .ant-slider {
+          width: 493px;
+          .ant-slider-rail {
+            background: url(${require('@/assets/img/statbar.png')}) no-repeat;
+            height: 9px;
+            width: 100%;
+            background-position: left 0px;
+          }
+          .ant-slider-track {
+            background: url(${require('@/assets/img/statbar.png')}) no-repeat;
+            height: 9px;
+            width: 100%;
+            background-position: left -66px;
+          }
+          .ant-slider-handle {
+            width: 22px;
+            height: 24px;
+            background-position: 0 -250px !important;
+            border: none;
+            bottom: -8px;
+            background: url(${require('@/assets/img/iconall.png')}) no-repeat;
+          }
+        }
         .singer-info {
-          flex: 0.4;
-          margin-bottom: 8px;
           span:nth-of-type(1) {
             color: #e8e8e8;
           }
@@ -59,29 +82,10 @@ export const PlayerWrapper = styled.div`
             color: #9b9b9b;
           }
         }
-        &-song {
+        &-time {
+          color: #a1a1a1;
           position: relative;
-          height: 9px;
-          width: 493px;
-          background-position: right 0;
-          background: url(${require('@/assets/img/statbar.png')});
-          .red-process {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 9px;
-            width: 493px;
-            background-position: 0 -66px;
-            background: url(${require('@/assets/img/statbar.png')});
-            .drag-icon {
-              position: absolute;
-              left: -1.1%;
-              top: -7px;
-              width: 22px;
-              height: 24px;
-              background-position: 0 -250px;
-            }
-          }
+          top: -8px;
         }
       }
     }

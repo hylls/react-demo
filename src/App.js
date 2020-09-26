@@ -4,12 +4,23 @@ import './App.css';
 import Main from './pages/main'
 import { GlobalStyle } from './assets/css/normalize'
 
+import { HashRouter } from 'react-router-dom'
+import { Provider } from 'react-redux';
+
+import store from './store'
+
+
+
 function App() {
   return (
-    <div className="App">
-      <GlobalStyle/>
-      <Main/>
-    </div>
+    <Provider store={store}>
+      <HashRouter>
+        <div className="App">
+          <GlobalStyle/>
+          <Main/>
+        </div>
+      </HashRouter>
+    </Provider>
   );
 }
 
