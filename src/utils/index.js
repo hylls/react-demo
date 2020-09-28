@@ -16,3 +16,7 @@ export function oneToTwoArr(num, arr) {
   }
   return newArr
 }
+
+export function numToTime(num) {
+  
+}

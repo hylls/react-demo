@@ -66,3 +66,22 @@ export function getRankingList(id) {
     }
   })
 }
+
+// 获取音乐url
+export function getMusicUrl(id) {
+  return request({
+    url: "/song/url",
+    params: {
+      id
+    }
+  })
+}
+// 获取音乐详情
+export function getMusicDetail(ids) {
+  return request({
+    url: "/song/detail",
+    params: {
+      ids
+    }
+  })
+}

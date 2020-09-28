@@ -1,29 +1,31 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
+import React, { memo, useRef, useState } from 'react'
+import { getMusicUrl, getMusicDetail } from 'api/allApi'
 
 import { Slider } from 'antd'
 
 import { PlayerWrapper } from './style'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+// import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
-import { changeMoveTime } from '../../pages/main/store/action'
+// import { changeMoveTime } from '../../pages/main/store/action'
 
 export default memo(function Player() {
   const playerRef = useRef()
   function play() {
     playerRef.current.play()
   }
-  // let { moveTime } = useSelector((state) => ({
-  //   moveTime: state
-  // }), shallowEqual)
-  // let { endTIme } = useSelector((state) => ({
-  //   endTIme: state
-  // }), shallowEqual)
-  // console.log(moveTime);
-  // console.log(endTIme);
-  const dispatch = useDispatch()
+  const [moveTime, setMoveTime] = useState(0)
+  const [entTime, setEndTime] = useState(0)
+  // getMusicUrl(33894312).then(res => {
+  //   console.log(res);
+  // })
+  Promise.all([getMusicUrl(33894312), getMusicDetail(33894312)]).then(res => {
+    console.log(res);
+  })
+  function getSingTime(val) {
+    
+  }
   function draging(value) {
-    // dispatch(changeMoveTime(value))
-    console.log(changeMoveTime(value));
+    setMoveTime(value)
   }
   return (
     <PlayerWrapper>
@@ -43,8 +45,9 @@ export default memo(function Player() {
             </div>
             <Slider onChange={draging} defaultValue={0} />
             <div className="process-time">
-              <span className="move-time">{}</span>
-              <span className="end-time"></span>
+              <span className="move-time">{moveTime}</span>
+              <span>/</span>
+              <span className="end-time">{entTime}</span>
             </div>
           </div>
           <div className="right-btns">
