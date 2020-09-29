@@ -1,13 +1,12 @@
-import { Map } from 'immutable'
-import * as type from './actions'
+import { Map} from 'immutable'
 const defaultState = Map({
   playerList: []
 })
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case type.addPlayerList:
-      return state.setIn('playerList', action.payload)
+    case 'ADD_PLAYER_LIST':
+      return state.set('playerList', action.payload)
     default:
       return state
   }

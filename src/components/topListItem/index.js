@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { TopListItemWrapper } from './style'
-import { getMusicUrl } from 'api/allApi'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 import * as actions from 'pages/discover/recommand/store/actions'
@@ -14,15 +13,12 @@ function ListItemLi(props) {
   function buttonHidden() {
     setState(false)
   }
-  const playClick = useCallback(async () => {
-    // const res = await getMusicUrl(props.id)
-    dispatch(actions.addPlayerList([123123]))
-    console.log(object);
-    // console.log(res);
-  }, [dispatch])
-  const test = useSelector((state) => {
-    return state.getIn(['recommand', 'playerList'])
-  })
+  const playClick = useCallback(() => (
+    dispatch(actions.asyncAddPlayerList(props.id))
+  ), [dispatch])
+  // useEffect(() => {
+  //   dispatch(actions.addPlayerList([]))
+  // }, [dispatch]);
   function addListClick() {
     
   }

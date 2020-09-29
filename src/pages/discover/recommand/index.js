@@ -15,7 +15,6 @@ function Hot() {
     const fetch = async () => {
       const res = await personalized()
       setHotList(res.result)
-      // console.log(res.result)
     }
     fetch()
   }, [])
@@ -57,7 +56,6 @@ function TopList() {
       const list = res.list.slice(0, 3)
       const res2 = await Promise.all([getRankingList(list[0].id), getRankingList(list[1].id), getRankingList(list[2].id)])
       setTopList(res2)
-      // console.log(res2);
     })()
   }, [])
   return (
