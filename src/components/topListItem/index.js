@@ -1,8 +1,10 @@
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { TopListItemWrapper } from './style'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import * as actions from 'pages/discover/recommand/store/actions'
+
+// import { getMusicUrl } from 'api/allApi'
 
 function ListItemLi(props) {
   const [state, setState] = useState(false)
@@ -13,12 +15,10 @@ function ListItemLi(props) {
   function buttonHidden() {
     setState(false)
   }
-  const playClick = useCallback(() => (
-    dispatch(actions.asyncAddPlayerList(props.id))
-  ), [dispatch])
-  // useEffect(() => {
-  //   dispatch(actions.addPlayerList([]))
-  // }, [dispatch]);
+  const playClick = useCallback(() => {
+    dispatch(actions.asyncAddPlayerList(props))
+    dispatch(actions.changeCurrentPlaySong(props))
+  }, [dispatch, props])
   function addListClick() {
     
   }

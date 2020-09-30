@@ -61,8 +61,8 @@ function TopList() {
   return (
     <>
       {
-        topList.map(item => (
-          <TopListItem {...item.playlist} key={item.playlist.id}/>
+        topList.map((item, index) => (
+          <TopListItem {...item.playlist} key={index}/>
         ))
       }
     </>

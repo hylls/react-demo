@@ -1,5 +1,4 @@
 import React, { memo, useRef, useState } from 'react'
-import { getMusicUrl, getMusicDetail } from 'api/allApi'
 import { shallowEqual, useSelector } from 'react-redux'
 
 import { Slider } from 'antd'
@@ -16,16 +15,12 @@ export default memo(function Player() {
   }
   const [moveTime, setMoveTime] = useState(0)
   const [entTime, setEndTime] = useState(0)
-  // getMusicUrl(33894312).then(res => {
-  //   console.log(res);
-  // })
-  // Promise.all([getMusicUrl(33894312), getMusicDetail(33894312)]).then(res => {
-  //   console.log(res);
-  // })
-  const playList = useSelector((state) => {
-    // console.log(state.getIn(['recommand', 'playerList']))
-    return state.getIn(['recommand', 'playerList'])
-  }, shallowEqual)
+  const { playList, currentSong } = useSelector((state) => ({
+    playList: state.getIn(['recommand', 'playerList']),
+    currentSong: state.getIn(['recommand', 'currentSong'])
+  }), shallowEqual)
+  // console.log(playList)
+  // console.log(currentSong)
   function getSingTime(val) {
     
   }
@@ -53,11 +48,11 @@ export default memo(function Player() {
               <span className="move-time">{moveTime}</span>
               <span>/</span>
               <span className="end-time">{entTime}</span>
-              {
+              {/* {
                 playList.map(item => (
                   <span key={item.id}>{item.id}</span>
                 ))
-              }
+              } */}
             </div>
           </div>
           <div className="right-btns">
