@@ -1,3 +1,4 @@
+import n from 'moment'
 export function getPersonCount(num, k = 1) {
   return `${(num/k/10000).toFixed(0)}万`
 }
@@ -16,7 +17,15 @@ export function oneToTwoArr(num, arr) {
   }
   return newArr
 }
+// 把时间戳转换成 歌手时间
+export function timeStapToTime(num) {
+  return n(num).format('mm:ss')
+}
 
-export function numToTime(num) {
-  
+export function numToTime(num, value) {
+  if (!value || !num) {
+    return '00:00'
+  } else {
+    return n(num*value/100).format('mm:ss')
+  }
 }

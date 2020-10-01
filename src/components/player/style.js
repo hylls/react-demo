@@ -88,6 +88,9 @@ export const PlayerWrapper = styled.div`
           top: -8px;
         }
       }
+      .right-btns {
+        
+      }
     }
   }
   .block {

@@ -1,31 +1,55 @@
-import React, { memo, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
 
 import { Slider } from 'antd'
 
 import { PlayerWrapper } from './style'
+import { timeStapToTime, numToTime } from 'utils'
+// import { getMusicUrl } from 'api/allApi'
 // import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
 // import { changeMoveTime } from '../../pages/main/store/action'
 
 export default memo(function Player() {
   const playerRef = useRef()
-  function play() {
-    playerRef.current.play()
+  const [isPlay, setPlay] = useState(false)
+  function playClick(bool) {
+    const audio = document.querySelector('#audio')
+    if (bool) {
+      audio.play()
+    } else {
+      audio.pause()
+    }
   }
-  const [moveTime, setMoveTime] = useState(0)
-  const [entTime, setEndTime] = useState(0)
+  function play() {
+    if (isPlay) {
+      // playerRef.current.pause().catch(res => console.log(res))
+      playClick(true)
+      setPlay(false)
+    } else {
+      // playerRef.current.play().catch(res => console.log(res))
+      playClick(false)
+      setPlay(true)
+    }
+  }
+  const [moveTime, setMoveTime] = useState('00:00')
+  const [endTime, setEndTime] = useState('04:00')
   const { playList, currentSong } = useSelector((state) => ({
     playList: state.getIn(['recommand', 'playerList']),
     currentSong: state.getIn(['recommand', 'currentSong'])
   }), shallowEqual)
-  // console.log(playList)
-  // console.log(currentSong)
-  function getSingTime(val) {
+  useEffect(() => {
+    // playerRef.current.play()
+    // setPlay(true)
+    // setEndTime(timeStapToTime(currentSong.publishTime || 0))
+  }, [currentSong])
+  // function getSingTime() {
     
-  }
+  // }
   function draging(value) {
-    setMoveTime(value)
+    // setMoveTime(value)
+    setMoveTime(numToTime(currentSong.publishTime, value))
+    // setMoveTime(numToTime(4 * 60 * 1000, value))
   }
   return (
     <PlayerWrapper>
@@ -47,12 +71,7 @@ export default memo(function Player() {
             <div className="process-time">
               <span className="move-time">{moveTime}</span>
               <span>/</span>
-              <span className="end-time">{entTime}</span>
-              {/* {
-                playList.map(item => (
-                  <span key={item.id}>{item.id}</span>
-                ))
-              } */}
+              <span className="end-time">{endTime}</span>
             </div>
           </div>
           <div className="right-btns">
@@ -63,7 +82,7 @@ export default memo(function Player() {
       <div className="block icon-playbar">
         <i className="blockBtn icon-playbar c-p" />
       </div>
-      <audio src="https://music.163.com/song/media/outer/url?id=1480280185.mp3" ref={playerRef} />
+      <audio id="audio" src={currentSong.url} ref={playerRef} />
     </PlayerWrapper>
   )
 })

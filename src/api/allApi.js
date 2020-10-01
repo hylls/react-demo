@@ -60,7 +60,7 @@ export function getTopList() {
 // 获取榜单详情
 export function getRankingList(id) {
   return request({
-    url: "/playlist/detail",
+    url: "/playlist/detail?" + Math.random(),
     params: {
       id
     }
