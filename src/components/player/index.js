@@ -23,33 +23,31 @@ export default memo(function Player() {
   }
   function play() {
     if (isPlay) {
-      // playerRef.current.pause().catch(res => console.log(res))
       playClick(true)
       setPlay(false)
     } else {
-      // playerRef.current.play().catch(res => console.log(res))
       playClick(false)
       setPlay(true)
     }
   }
   const [moveTime, setMoveTime] = useState('00:00')
-  const [endTime, setEndTime] = useState('04:00')
+  const [endTime, setEndTime] = useState('00:00')
   const { playList, currentSong } = useSelector((state) => ({
     playList: state.getIn(['recommand', 'playerList']),
     currentSong: state.getIn(['recommand', 'currentSong'])
   }), shallowEqual)
   useEffect(() => {
-    // playerRef.current.play()
-    // setPlay(true)
-    // setEndTime(timeStapToTime(currentSong.publishTime || 0))
+    playClick(true)
+    setEndTime(timeStapToTime(currentSong.dt || 0))
+    console.log(currentSong);
   }, [currentSong])
-  // function getSingTime() {
-    
-  // }
   function draging(value) {
-    // setMoveTime(value)
-    setMoveTime(numToTime(currentSong.publishTime, value))
-    // setMoveTime(numToTime(4 * 60 * 1000, value))
+    setMoveTime(numToTime(currentSong.dt, value))
+  }
+  // 歌词面板
+  const [isLyricsShow, setLyrics] = useState(false)
+  function openLyricsPanel() {
+    setLyrics(!isLyricsShow)
   }
   return (
     <PlayerWrapper>
@@ -60,29 +58,38 @@ export default memo(function Player() {
           <i className="btn-next icon-playbar c-p" />
         </div>
         <div className="player-process d-flex a-c">
-          <i className="singer-image" />
-          <div className="process d-flex">
+          {
+            JSON.stringify(currentSong) === "{}"
+            ? <img className="noPic icon-playbar_8" src="http://s4.music.126.net/style/web2/img/default/default_album.jpg" alt="歌手图片" />
+            : <img style={{ width: 34, height: 35 }} src={currentSong.al.picUrl} alt="歌手图片" />
+          }
+          <div className="process">
             <div className="singer-info d-flex a-c">
-              <span>烟花大会</span>
-              <span>徐秉龙</span>
+              { JSON.stringify(currentSong) !== "{}" && <span>{currentSong.name}</span> }
+              { JSON.stringify(currentSong) !== "{}" && <span>{currentSong.ar[0].name}</span> }
               <i className="link" />
             </div>
             <Slider onChange={draging} defaultValue={0} />
-            <div className="process-time">
+          </div>
+          <div className="process-time">
               <span className="move-time">{moveTime}</span>
               <span>/</span>
               <span className="end-time">{endTime}</span>
             </div>
-          </div>
-          <div className="right-btns">
-            <i className="collection" />
+          <div className="right-btns d-flex c-p">
+            <i className="collection icon-playbar_8 c-p" />
+            <i className="share icon-playbar_8 c-p" />
+            <i className="line icon-playbar_8 c-p" />
+            <i className="volume icon-playbar_8 c-p" />
+            <i className="play-type icon-playbar_8 c-p" />
+            <i onClick={openLyricsPanel} className="play-list icon-playbar_8 c-p" />
           </div>
         </div>
       </div>
       <div className="block icon-playbar">
         <i className="blockBtn icon-playbar c-p" />
       </div>
-      <audio id="audio" src={currentSong.url} ref={playerRef} />
+      <audio muted="muted" id="audio" src={currentSong.url|| ''} ref={playerRef} />
     </PlayerWrapper>
   )
 })

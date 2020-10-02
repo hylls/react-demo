@@ -68,6 +68,10 @@ export const GlobalStyle = createGlobalStyle`
         display: inline-block;
         background: url(${require('@/assets/img/playbar.png')});
     }
+    .icon-playbar_8 {
+        display: inline-block;
+        background: url(${require('@/assets/img/playbar_8.png')});
+    }
     .text-noWrap {
         overflow: hidden;
         text-overflow: ellipsis;

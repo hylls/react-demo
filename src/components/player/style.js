@@ -45,13 +45,24 @@ export const PlayerWrapper = styled.div`
       width: 630px;
       height: 100%;
       font-size: 12px;
+      padding-top: 4px;
+      &>img {
+        margin-right: 15px;
+      }
+      .noPic {
+        width: 34px;
+        height: 35px;
+        background-position: 0 -80px;
+      }
       .process {
         height: 100%;
         width: 100%;
-        flex-flow: column wrap;
-        justify-content: flex-end;
+        /* flex-flow: column wrap; */
+        /* justify-content: flex-end; */
+        padding-top: 7px;
         .ant-slider {
           width: 493px;
+          margin-top: 6px;
           .ant-slider-rail {
             background: url(${require('@/assets/img/statbar.png')}) no-repeat;
             height: 9px;
@@ -69,11 +80,14 @@ export const PlayerWrapper = styled.div`
             height: 24px;
             background-position: 0 -250px !important;
             border: none;
-            bottom: -8px;
+            bottom: -9px;
             background: url(${require('@/assets/img/iconall.png')}) no-repeat;
           }
         }
         .singer-info {
+          padding-top: 2px;
+          padding-left: 7px;
+          height: 12px;
           span:nth-of-type(1) {
             color: #e8e8e8;
           }
@@ -85,11 +99,63 @@ export const PlayerWrapper = styled.div`
         &-time {
           color: #a1a1a1;
           position: relative;
-          top: -8px;
+          top: 8px;
+          margin-left: 8px;
         }
       }
       .right-btns {
-        
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 30px;
+        padding-top: 4px;
+        i {
+          margin-right: 5px;
+        }
+        .collection {
+          width: 25px;
+          height: 25px;
+          background-position: -88px -163px;
+          &:hover {
+            background-position: -88px -189px;
+          }
+        }
+        .share {
+          width: 25px;
+          height: 25px;
+          background-position: -114px -163px;
+          &:hover {
+            background-position: -114px -189px;
+          }
+        }
+        .line {
+          width: 7px;
+          height: 25px;
+          background-position: -147px -238px;
+        }
+        .volume {
+          width: 25px;
+          height: 25px;
+          background-position: -2px -248px;
+          &:hover {
+            background-position: -31px -248px;
+          }
+        }
+        .play-type {
+          width: 25px;
+          height: 25px;
+          background-position: -66px -344px;
+          &:hover {
+            background-position: -93px -344px;
+          }
+        }
+        .play-list {
+          width: 38px;
+          height: 25px;
+          background-position: -42px -68px;
+          &:hover {
+            background-position: -42px -98px;
+          }
+        }
       }
     }
   }
