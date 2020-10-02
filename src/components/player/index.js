@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from 'react'
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
 
 import { Slider } from 'antd'
@@ -11,25 +11,14 @@ import { timeStapToTime, numToTime } from 'utils'
 // import { changeMoveTime } from '../../pages/main/store/action'
 
 export default memo(function Player() {
+  // 播放按钮
   const playerRef = useRef()
   const [isPlay, setPlay] = useState(false)
-  function playClick(bool) {
-    const audio = document.querySelector('#audio')
-    if (bool) {
-      audio.play()
-    } else {
-      audio.pause()
-    }
-  }
-  function play() {
-    if (isPlay) {
-      playClick(true)
-      setPlay(false)
-    } else {
-      playClick(false)
-      setPlay(true)
-    }
-  }
+  const play = useCallback(() => {
+    setPlay(!isPlay)
+    !isPlay ? playerRef.current.play().catch(err => setPlay(false))
+    : playerRef.current.pause()
+  }, [isPlay])
   const [moveTime, setMoveTime] = useState('00:00')
   const [endTime, setEndTime] = useState('00:00')
   const { playList, currentSong } = useSelector((state) => ({
@@ -37,7 +26,8 @@ export default memo(function Player() {
     currentSong: state.getIn(['recommand', 'currentSong'])
   }), shallowEqual)
   useEffect(() => {
-    playClick(true)
+    playerRef.current.play()
+      .then(res => setPlay(true)).catch(err => setPlay(false))
     setEndTime(timeStapToTime(currentSong.dt || 0))
     console.log(currentSong);
   }, [currentSong])
@@ -49,12 +39,38 @@ export default memo(function Player() {
   function openLyricsPanel() {
     setLyrics(!isLyricsShow)
   }
+  // 一直显示打开面板 点及其他空白处消失
+  const closePanel = useCallback((e) => {
+    setLyrics(false)
+  }, [])
+  useEffect(() => {
+    document.getElementById('root').addEventListener('click', closePanel)
+    return () => {
+      document.getElementById('root').removeEventListener('click', closePanel)
+    }
+  }, [closePanel])
+  function allwaysOpen(e) {
+    setLyrics(true)
+  }
+  // 进度条事件
+  function afterChange(value) {
+    console.log(value)
+  }
+  const [process, setProcess] = useState(0)
+  const timeSetProcess = useCallback(() => {
+    setInterval(() => {
+      setProcess(100/currentSong.dt * 1000 * 5)
+    }, 200)
+  }, [currentSong])
+  useEffect(() => {
+    timeSetProcess()
+  }, [timeSetProcess])
   return (
     <PlayerWrapper>
       <div className="player-content d-flex a-c">
         <div className="player-btns d-flex j-c a-c">
           <i className="btn-prev icon-playbar c-p" />
-          <i onClick={play} className="btn-play icon-playbar c-p" />
+          <i onClick={play} className={[isPlay === false ? 'btn-play' : 'btn-pause', 'icon-playbar', 'c-p'].join(' ')} />
           <i className="btn-next icon-playbar c-p" />
         </div>
         <div className="player-process d-flex a-c">
@@ -69,7 +85,7 @@ export default memo(function Player() {
               { JSON.stringify(currentSong) !== "{}" && <span>{currentSong.ar[0].name}</span> }
               <i className="link" />
             </div>
-            <Slider onChange={draging} defaultValue={0} />
+            <Slider onChange={draging} onAfterChange={afterChange} value={process} />
           </div>
           <div className="process-time">
               <span className="move-time">{moveTime}</span>
@@ -89,7 +105,13 @@ export default memo(function Player() {
       <div className="block icon-playbar">
         <i className="blockBtn icon-playbar c-p" />
       </div>
-      <audio muted="muted" id="audio" src={currentSong.url|| ''} ref={playerRef} />
+      <audio id="audio" src={currentSong.url|| ''} ref={playerRef} />
+      { isLyricsShow &&
+        <div onClick={allwaysOpen} className="lyrics-panel">
+          <div className="panel-header"></div>
+          <div className="panel-content"></div>
+        </div>
+      }
     </PlayerWrapper>
   )
 })

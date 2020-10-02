@@ -32,6 +32,14 @@ export const PlayerWrapper = styled.div`
           background-position: -40px -204px;
         }
       }
+      .btn-pause {
+        width: 36px;
+        height: 36px;
+        background-position: 0 -165px;
+        &:hover {
+          background-position: -40px -165px;
+        }
+      }
       .btn-next {
         width: 28px;
         height: 28px;
@@ -187,6 +195,22 @@ export const PlayerWrapper = styled.div`
       &:hover {
         background-position: -100px -400px;
       }
+    }
+  }
+  .lyrics-panel {
+    position: absolute;
+    bottom: 47px;
+    width: 986px;
+    left: 50%;
+    transform: translate(-50%);
+    .panel-header {
+      background: url(${require('@/assets/img/playlist_bg.png')}) no-repeat;
+      height: 41px;
+    }
+    .panel-content {
+      background: url(${require('@/assets/img/playlist_bg.png')}) -1014px 0;
+      background-repeat: repeat-y;
+      height: 260px;
     }
   }
 `
