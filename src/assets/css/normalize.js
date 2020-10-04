@@ -72,6 +72,10 @@ export const GlobalStyle = createGlobalStyle`
         display: inline-block;
         background: url(${require('@/assets/img/playbar_8.png')});
     }
+    .icon-play-list {
+        display: inline-block;
+        background: url(${require('@/assets/img/playlist.png')}) no-repeat;
+    }
     .text-noWrap {
         overflow: hidden;
         text-overflow: ellipsis;

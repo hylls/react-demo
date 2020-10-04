@@ -20,10 +20,24 @@ export const asyncAddPlayerList = (info) => {
   }
 }
 
+// 更改当前歌曲
 export const changeCurrentPlaySong = (songInfo) => {
   return async (dispatch) => {
     const res = await getMusicUrl(songInfo.id)
     // console.log(res)
     dispatch(changeCurrentSong({...songInfo, ...res.data[0]}))
+  }
+}
+
+// 删除当前歌曲
+export const deleteCurrentSong = (index) => {
+  return (dispatch, getState) => {
+    const playList = getState().getIn(['recommand', 'playerList'])
+    playList.splice(index, 1)
+    console.log(playList);
+    dispatch({
+      type: 'DELETE_CURRENT_SONG',
+      payload: playList
+    })
   }
 }

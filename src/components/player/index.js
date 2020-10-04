@@ -1,10 +1,11 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
-import { shallowEqual, useSelector } from 'react-redux'
+import { shallowEqual, useSelector, useDispatch } from 'react-redux'
 
 import { Slider } from 'antd'
 
 import { PlayerWrapper } from './style'
 import { timeStapToTime, numToTime } from 'utils'
+import * as actions from 'pages/discover/recommand/store/actions'
 // import { getMusicUrl } from 'api/allApi'
 // import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 
@@ -25,6 +26,7 @@ export default memo(function Player() {
     playList: state.getIn(['recommand', 'playerList']),
     currentSong: state.getIn(['recommand', 'currentSong'])
   }), shallowEqual)
+  // console.log(playList);
   useEffect(() => {
     playerRef.current.play()
       .then(res => setPlay(true)).catch(err => setPlay(false))
@@ -39,18 +41,20 @@ export default memo(function Player() {
   const closePanel = useCallback((e) => {
     setLyrics(false)
   }, [])
-  useEffect(() => {
-    document.getElementById('root').addEventListener('click', closePanel)
-    return () => {
-      document.getElementById('root').removeEventListener('click', closePanel)
-    }
-  }, [closePanel])
-  function allwaysOpen(e) {
+  // useEffect(() => {
+  //   document.querySelector('body').addEventListener('click', closePanel)
+  //   return () => {
+  //     document.querySelector('body').removeEventListener('click', closePanel)
+  //   }
+  // }, [closePanel])
+  const allwaysOpen = (e) => {
+    // e.nativeEvent.stopImmediatePropagation()
     setLyrics(true)
   }
   // 进度条事件
   const [process, setProcess] = useState(0)
   function draging(value) {
+    console.log(playerRef.current);
     playerRef.current.pause()
     setPlay(false)
     setMoveTime(numToTime(currentSong.dt, value))
@@ -64,7 +68,7 @@ export default memo(function Player() {
     }
   }, [isPlay, play, currentSong])
   const timeUpdate = e => {
-    // console.dir(e.target.currentTime)
+    console.dir(e.target.volume = 0.2)
     const currentTime = e.target.currentTime
     setProcess(currentTime / currentSong.dt * 100 * 1000)
     setMoveTime(timeStapToTime(currentTime * 1000))
@@ -110,12 +114,81 @@ export default memo(function Player() {
         <i className="blockBtn icon-playbar c-p" />
       </div>
       <audio id="audio" src={currentSong.url|| ''} onTimeUpdate={timeUpdate} ref={playerRef} />
-      { isLyricsShow &&
-        <div onClick={allwaysOpen} className="lyrics-panel">
-          <div className="panel-header"></div>
-          <div className="panel-content"></div>
-        </div>
-      }
+      { isLyricsShow && <Panel allwaysOpen={allwaysOpen} /> }
     </PlayerWrapper>
   )
 })
+
+function Panel(props) {
+  const { playList, currentSong } = useSelector((state) => ({
+    playList: state.getIn(['recommand', 'playerList']),
+    currentSong: state.getIn(['recommand', 'currentSong'])
+  }), shallowEqual)
+  // 切换当前歌曲
+  const dispatch = useDispatch()
+  const changeCurrentSong = useCallback((index) => {
+    dispatch(actions.changeCurrentPlaySong(playList[index]))
+  }, [dispatch, playList])
+  // 删除当前歌曲
+  const deleteCurrentSong = useCallback((e, index) => {
+    e.nativeEvent.stopImmediatePropagation()
+    dispatch(actions.deleteCurrentSong(index))
+  }, [dispatch])
+  function SongList() {
+    return (
+      <>
+          {
+            playList.map((item, index) => (
+              <div onClick={() => changeCurrentSong(index)} className="list-content d-flex c-p" key={item.id} >
+                <div className="icon">
+                  { item.id === currentSong.id && <i className="current-icon" /> }
+                </div>
+                <div className="song d-flex">
+                  <span className="song-name text-noWrap">{item.name}</span>
+                  <div className="four-icon d-flex">
+                    <div className="icons d-flex">
+                      <i className="collect icon-play-list" />
+                      <i className="share icon-play-list" />
+                      <i className="download icon-play-list" />
+                      <i onClick={(e) => deleteCurrentSong(e, index)} className="delete icon-play-list" />
+                    </div>
+                  </div>
+                </div>
+                <div className="author-name u-line">{item.ar[0].name}</div>
+                <div className="end-time">{timeStapToTime(item.dt)}</div>
+                <i className="link" />
+              </div>
+            ))
+          }
+      </>
+    )
+  }
+  return (
+    <div onClick={props.allwaysOpen} className="lyrics-panel">
+      <img className="image" src="https://p4.music.126.net/qeN7o2R3_OTPhghmkctFBQ==/764160591569856.jpg" alt=""/>
+      <div className="panel-header d-flex">
+        <h3 className="play-list">播放列表({playList.length})</h3>
+        <div className="collect">
+          <i className="collection" />
+          <span className="c-p u-line">收藏全部</span>
+        </div>
+        <span className="line"></span>
+        <div className="clear">
+          <i className="clear-icon" />
+          <span className="c-p u-line">清除</span>
+        </div>
+        <div className="song-name d-flex">{currentSong.name}</div>
+      </div>
+      <div className="panel-content d-flex">
+        <div className="song-list d-flex">
+          {
+            playList.length
+            ? <SongList/>
+            : <div></div>
+          }
+        </div>
+        <div className="lyrics-content"></div>
+      </div>
+    </div>
+  )
+}

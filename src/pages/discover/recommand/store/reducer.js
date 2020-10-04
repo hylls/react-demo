@@ -10,6 +10,8 @@ export default (state = defaultState, action) => {
       return state.set('playerList', action.payload)
     case 'CHANGE_CURRENT_PLAY_SONG':
       return state.set('currentSong', action.payload)
+    case 'DELETE_CURRENT_SONG':
+      return state.set('currentSong', action.payload)
     default:
       return state
   }
