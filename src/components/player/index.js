@@ -29,11 +29,7 @@ export default memo(function Player() {
     playerRef.current.play()
       .then(res => setPlay(true)).catch(err => setPlay(false))
     setEndTime(timeStapToTime(currentSong.dt || 0))
-    console.log(currentSong);
   }, [currentSong])
-  function draging(value) {
-    setMoveTime(numToTime(currentSong.dt, value))
-  }
   // 歌词面板
   const [isLyricsShow, setLyrics] = useState(false)
   function openLyricsPanel() {
@@ -53,18 +49,26 @@ export default memo(function Player() {
     setLyrics(true)
   }
   // 进度条事件
-  function afterChange(value) {
-    console.log(value)
-  }
   const [process, setProcess] = useState(0)
-  const timeSetProcess = useCallback(() => {
-    setInterval(() => {
-      setProcess(100/currentSong.dt * 1000 * 5)
-    }, 200)
-  }, [currentSong])
-  useEffect(() => {
-    timeSetProcess()
-  }, [timeSetProcess])
+  function draging(value) {
+    playerRef.current.pause()
+    setPlay(false)
+    setMoveTime(numToTime(currentSong.dt, value))
+    setProcess(value)
+  }
+  const afterChange = useCallback((value) => {
+    const time = value / 100 * currentSong.dt / 1000
+    playerRef.current.currentTime = time
+    if (!isPlay) {
+      play()
+    }
+  }, [isPlay, play, currentSong])
+  const timeUpdate = e => {
+    // console.dir(e.target.currentTime)
+    const currentTime = e.target.currentTime
+    setProcess(currentTime / currentSong.dt * 100 * 1000)
+    setMoveTime(timeStapToTime(currentTime * 1000))
+  }
   return (
     <PlayerWrapper>
       <div className="player-content d-flex a-c">
@@ -105,7 +109,7 @@ export default memo(function Player() {
       <div className="block icon-playbar">
         <i className="blockBtn icon-playbar c-p" />
       </div>
-      <audio id="audio" src={currentSong.url|| ''} ref={playerRef} />
+      <audio id="audio" src={currentSong.url|| ''} onTimeUpdate={timeUpdate} ref={playerRef} />
       { isLyricsShow &&
         <div onClick={allwaysOpen} className="lyrics-panel">
           <div className="panel-header"></div>

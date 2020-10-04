@@ -29,3 +29,7 @@ export function numToTime(num, value) {
     return n(num*value/100).format('mm:ss')
   }
 }
+
+// export function timeToNum(time) {
+//   return n(time)/1000
+// }
